@@ -4,7 +4,7 @@
 #
 Name     : perl-prefork
 Version  : 1.05
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-1.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-1.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libp/libprefork-perl/libprefork-perl_1.04-2.debian.tar.xz
@@ -12,6 +12,7 @@ Summary  : 'Optimized module loading for forking or non-forking processes'
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-prefork-license = %{version}-%{release}
+Requires: perl-prefork-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -23,6 +24,7 @@ Optimized module loading for forking or non-forking processes
 Summary: dev components for the perl-prefork package.
 Group: Development
 Provides: perl-prefork-devel = %{version}-%{release}
+Requires: perl-prefork = %{version}-%{release}
 
 %description dev
 dev components for the perl-prefork package.
@@ -36,18 +38,28 @@ Group: Default
 license components for the perl-prefork package.
 
 
+%package perl
+Summary: perl components for the perl-prefork package.
+Group: Default
+Requires: perl-prefork = %{version}-%{release}
+
+%description perl
+perl components for the perl-prefork package.
+
+
 %prep
 %setup -q -n prefork-1.05
-cd ..
-%setup -q -T -D -n prefork-1.05 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libprefork-perl_1.04-2.debian.tar.xz
+cd %{_builddir}/prefork-1.05
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/prefork-1.05/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/prefork-1.05/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -57,7 +69,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -66,7 +78,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-prefork
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-prefork/LICENSE
+cp %{_builddir}/prefork-1.05/LICENSE %{buildroot}/usr/share/package-licenses/perl-prefork/b49005c259b7d098d7002eb25909e01a2f94426f
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -79,7 +91,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/prefork.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -87,4 +98,8 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-prefork/LICENSE
+/usr/share/package-licenses/perl-prefork/b49005c259b7d098d7002eb25909e01a2f94426f
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/prefork.pm
