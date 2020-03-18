@@ -4,7 +4,7 @@
 #
 Name     : perl-prefork
 Version  : 1.05
-Release  : 12
+Release  : 13
 URL      : https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-1.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-1.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libp/libprefork-perl/libprefork-perl_1.04-2.debian.tar.xz
@@ -78,6 +78,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-prefork
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-prefork/82c7a4a874eacce070f1fd5fefae53f8ce04b459
 cp %{_builddir}/prefork-1.05/LICENSE %{buildroot}/usr/share/package-licenses/perl-prefork/b49005c259b7d098d7002eb25909e01a2f94426f
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
@@ -98,8 +99,9 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-prefork/82c7a4a874eacce070f1fd5fefae53f8ce04b459
 /usr/share/package-licenses/perl-prefork/b49005c259b7d098d7002eb25909e01a2f94426f
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/prefork.pm
+/usr/lib/perl5/vendor_perl/5.30.2/prefork.pm
