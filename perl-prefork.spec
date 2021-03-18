@@ -4,7 +4,7 @@
 #
 Name     : perl-prefork
 Version  : 1.05
-Release  : 14
+Release  : 15
 URL      : https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-1.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-1.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libp/libprefork-perl/libprefork-perl_1.04-2.debian.tar.xz
@@ -104,4 +104,4 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.3/prefork.pm
+/usr/lib/perl5/vendor_perl/5.32.1/prefork.pm
