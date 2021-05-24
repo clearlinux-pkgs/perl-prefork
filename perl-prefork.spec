@@ -4,7 +4,7 @@
 #
 Name     : perl-prefork
 Version  : 1.05
-Release  : 19
+Release  : 20
 URL      : https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-1.05.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-1.05.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libp/libprefork-perl/libprefork-perl_1.04-2.debian.tar.xz
